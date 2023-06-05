@@ -143,4 +143,4 @@
   (check-syntax-error (consume-safely 'block-literal '([ || a foo ])))
   (check-syntax-error (consume-safely 'block-literal '([ || ])))
   (check-syntax-error (consume-safely 'block-literal (read-from-string "( [ )")))
-  (check-syntax-error (consume-safely 'block-literal (read-from-string "( ] )")))
+  (check-syntax-error (consume-safely 'block-literal (read-from-string "( ] )"))))
