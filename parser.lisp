@@ -84,6 +84,13 @@
                                (error "Consume limit exceeded.")))))
     (consume something tokens)))
 
+(defun consume-toplevel (something tokens)
+  (multiple-value-bind (result rest)
+      (consume something tokens)
+    (when rest
+      (syntax-error 'end-of-input tokens))
+    (values result tokens)))
+
 (defgeneric consume-terminal (terminal tokens)
   (:method :around (terminal tokens)
     (if (looking-at-terminal terminal tokens)
