@@ -86,6 +86,8 @@
       (consume-safely 'expression '(1 :foo 1 foo :bar 2 foo bar ·)) 1)
   (check-consumed
       (consume-safely 'expression '(1 :foo 2 ··· :bar a ·)) 1)
+  (check-consumed
+      (consume-safely 'expression '(1 :foo 2 ··· :bar a ··· foo ·)) 1)
   (check-syntax-error
    (consume-safely 'expression '(:foo 1 ·)))
   (check-syntax-error
