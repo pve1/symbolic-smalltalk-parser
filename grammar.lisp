@@ -15,7 +15,7 @@
   (and (symbolp x)
        (or (eq x :=)
            (eq x 'end-of-input)
-           (member x '("·" "··" "~" "^" "") :test #'string=))))
+           (member x '("·" "··" "~" "^" "" "[" "]") :test #'string=))))
 
 (define-terminal identifier (x)
   (and (symbolp x)
@@ -55,8 +55,23 @@
 
 ;;; Non-terminals
 
+(define-non-terminal block-literal
+  ("[" block-contents "]"))
+
+(define-non-terminal block-contents
+  (formal-block-argument-declaration "" executable-code)
+  (executable-code))
+
+(define-non-terminal formal-block-argument-declaration
+  (valid-keyword formal-block-argument-declaration-chain))
+
+(define-non-terminal formal-block-argument-declaration-chain
+  (valid-keyword formal-block-argument-declaration-chain)
+  ())
+
 (define-non-terminal operand
   (literal)
+  (block-literal)
   (identifier))
 
 (define-non-terminal unary-message

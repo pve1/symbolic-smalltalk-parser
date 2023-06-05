@@ -125,4 +125,22 @@
   (check-consumed (consume-safely 'executable-code '(foo · bar)))
   (check-consumed (consume-safely 'executable-code '(foo · bar ·)))
   (check-consumed (consume-safely 'executable-code '(foo bar · foo bar ·)))
-  (check-consumed (consume-safely 'executable-code '(a := foo bar · b := foo bar ·))))
+  (check-consumed (consume-safely 'executable-code '(a := foo bar · b := foo bar ·)))
+  (check-consumed (consume-safely 'executable-code '(:= foo)) 2)
+  (check-consumed (consume-safely 'executable-code '([ a ])))
+  (check-consumed (consume-safely 'executable-code '([ a ] foo))))
+
+#+self-test.seed
+(self-test.seed:define-self-test block-literal
+  (check-consumed (consume-safely 'block-literal '([ ])))
+  (check-consumed (consume-safely 'block-literal '([ 1 ])))
+  (check-consumed (consume-safely 'block-literal '([ a foo · b bar ])))
+  (check-consumed (consume-safely 'block-literal '([ a foo · b bar · ])))
+  (check-consumed (consume-safely 'block-literal '([ :a || ])))
+  (check-consumed (consume-safely 'block-literal '([ :a || a foo ])))
+  (check-syntax-error (consume-safely 'block-literal '([ :a ])))
+  (check-syntax-error (consume-safely 'block-literal '([ :a a foo ])))
+  (check-syntax-error (consume-safely 'block-literal '([ || a foo ])))
+  (check-syntax-error (consume-safely 'block-literal '([ || ])))
+  (check-syntax-error (consume-safely 'block-literal (read-from-string "( [ )")))
+  (check-syntax-error (consume-safely 'block-literal (read-from-string "( ] )")))
