@@ -107,9 +107,6 @@
   (binary-message binary-message-chain keyword-message-chain)
   (keyword-message))
 
-(define-non-terminal cascaded-message
-  (cascade-operand message-chain))
-
 (define-non-terminal cascaded-message-chain
   (cascade-operand message-chain cascaded-message-chain)
   ())
