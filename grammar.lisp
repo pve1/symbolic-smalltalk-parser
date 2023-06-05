@@ -1,6 +1,5 @@
 (in-package :symbolic-smalltalk-parser)
 
-
 ;;; Terminals
 
 (defun binary-operator-p (x)
