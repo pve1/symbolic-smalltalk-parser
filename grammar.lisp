@@ -14,8 +14,7 @@
 (defun special-symbol-p (x)
   (and (symbolp x)
        (or (eq x :=)
-           (eq x 'end-of-input)
-           (member x '("·" "··" "~" "^" "" "[" "]") :test #'string=))))
+           (member x '("·" "···" "^" "" "[" "]") :test #'string=))))
 
 (define-terminal identifier (x)
   (and (symbolp x)
@@ -31,8 +30,7 @@
   (symbol-and-string= "·" x))
 
 (define-terminal cascade-operand (x)
-  (or (symbol-and-string= "··" x)
-      (symbol-and-string= "~" x)))
+  (symbol-and-string= "···" x))
 
 (define-terminal return-operator (x)
   (symbol-and-string= "^" x))
