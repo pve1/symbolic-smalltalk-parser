@@ -1,5 +1,7 @@
 (in-package :symbolic-smalltalk-parser)
 
+;;; Inspired by http://chronos-st.blogspot.com/2007/12/smalltalk-in-one-page.html
+
 ;;; Terminals
 
 (defun binary-operator-p (x)
