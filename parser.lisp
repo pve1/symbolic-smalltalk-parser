@@ -124,7 +124,12 @@
 (defun syntax-error (what tokens)
   (error "Syntax error looking at ~S. Expected ~A."
          tokens
-         what))
+         ;; Hack
+         (if (and (or (stringp what)
+                      (symbolp what))
+                  (string= what ""))
+             "||"
+             what)))
 
 (defmethod print-object ((object terminal) stream)
   (print-unreadable-object (object stream :type t)
