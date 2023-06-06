@@ -90,8 +90,8 @@
   (multiple-value-bind (result rest)
       (consume something tokens)
     (when rest
-      (syntax-error 'end-of-input tokens))
-    (values result tokens)))
+      (syntax-error 'end-of-input rest))
+    (values result nil)))
 
 (defgeneric consume-terminal (terminal tokens)
   (:method :around (terminal tokens)
