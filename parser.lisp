@@ -1,6 +1,16 @@
 (defpackage :symbolic-smalltalk-parser
   (:local-nicknames (:core :symbolic-smalltalk-core))
-  (:use :cl))
+  (:use :cl)
+  (:export "TERMINAL"
+           "NON-TERMINAL"
+           "TOKEN"
+           "VALUE"
+           "CONSUME"
+           "CONSUME-SAFELY"
+           "CONSUME-TOPLEVEL"
+           "LOOKING-AT"
+           "DEFINE-TERMINAL"
+           "DEFINE-NON-TERMINAL")
 
 (in-package :symbolic-smalltalk-parser)
 
