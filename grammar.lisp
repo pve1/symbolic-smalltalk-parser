@@ -49,6 +49,9 @@
     (cons (or (eq 'quote (car x))
               (eq 'function (car x))))))
 
+(define-terminal nested-expression (x)
+  (consp x))
+
 ;;; Non-terminals
 
 (define-non-terminal block-literal
@@ -68,7 +71,8 @@
 (define-non-terminal operand
   (literal)
   (block-literal)
-  (identifier))
+  (identifier)
+  (nested-expression))
 
 (define-non-terminal unary-message
   (identifier))
