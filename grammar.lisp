@@ -4,21 +4,22 @@
 
 ;;; Terminals
 
+(defun non-keyword-symbol-p (x)
+  (and (symbolp x) (not (keywordp x))))
+
 (defun binary-operator-p (x)
-  (and (symbolp x)
-       (not (keywordp x))
+  (and (non-keyword-symbol-p x)
        (loop :for c :across (symbol-name x)
              :always (loop :for op :across "-,~!@%&*+/=<>?|"
                              :thereis (eql c op)))))
 
 (defun special-symbol-p (x)
-  (and (symbolp x)
-       (or (eq x :=)
+  (or (eq x :=)
+      (and (non-keyword-symbol-p x)
            (member x '("·" "···" "^" "" "[" "]") :test #'string=))))
 
 (define-terminal identifier (x)
-  (and (symbolp x)
-       (not (keywordp x))
+  (and (non-keyword-symbol-p x)
        (not (special-symbol-p x))
        (not (binary-operator-p x))))
 
