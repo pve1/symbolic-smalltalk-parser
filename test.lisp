@@ -31,69 +31,42 @@
 
 #+self-test.seed
 (self-test.seed:define-self-test binary-message
-  (check-consumed
-      (consume-safely 'binary-message '(+ 1 foo ·)) 1)
-  (check-syntax-error
-   (consume-safely 'binary-message '(foo ·)))
-  (check-consumed
-      (consume-safely 'binary-message-chain '(+ 1 foo + 2 bar ·)) 1)
-  (check-consumed
-      (consume-safely 'binary-message-chain '(+ 1 + 2 ·)) 1)
-  (check-consumed
-      (consume-safely 'binary-message-chain '(1 foo)) 2)
-  (check-consumed
-      (consume-safely 'binary-message-chain '()) 0)
-  (check-syntax-error
-   (consume-safely 'binary-message-chain '(+)))
-  (check-syntax-error
-   (consume-safely 'binary-message-chain '(+ +))))
+  (check-consumed (consume-safely 'binary-message '(+ 1 foo ·)) 1)
+  (check-syntax-error (consume-safely 'binary-message '(foo ·)))
+  (check-consumed (consume-safely 'binary-message-chain '(+ 1 foo + 2 bar ·)) 1)
+  (check-consumed (consume-safely 'binary-message-chain '(+ 1 + 2 ·)) 1)
+  (check-consumed (consume-safely 'binary-message-chain '(1 foo)) 2)
+  (check-consumed (consume-safely 'binary-message-chain '()) 0)
+  (check-syntax-error (consume-safely 'binary-message-chain '(+)))
+  (check-syntax-error (consume-safely 'binary-message-chain '(+ +))))
 
 #+self-test.seed
 (self-test.seed:define-self-test keyword-message
-  (check-consumed
-      (consume-safely 'keyword-message-segment '(:foo 1 ·)) 1)
-  (check-syntax-error
-   (consume-safely 'keyword-message-segment '(1)))
-  (check-consumed
-      (consume-safely 'keyword-message '(:foo 1 :bar 2 ·)) 1)
-  (check-consumed
-      (consume-safely 'keyword-message '(:foo 1 foo ·)) 1)
-  (check-consumed
-      (consume-safely 'keyword-message '(:foo 1 foo :bar 2 ·)) 1)
-  (check-syntax-error
-   (consume-safely 'keyword-message-segment '(:foo)))
-  (check-syntax-error
-   (consume-safely 'keyword-message-segment '(:foo :bar))))
+  (check-consumed (consume-safely 'keyword-message-segment '(:foo 1 ·)) 1)
+  (check-syntax-error (consume-safely 'keyword-message-segment '(1)))
+  (check-consumed (consume-safely 'keyword-message '(:foo 1 :bar 2 ·)) 1)
+  (check-consumed (consume-safely 'keyword-message '(:foo 1 foo ·)) 1)
+  (check-consumed (consume-safely 'keyword-message '(:foo 1 foo :bar 2 ·)) 1)
+  (check-syntax-error (consume-safely 'keyword-message-segment '(:foo)))
+  (check-syntax-error (consume-safely 'keyword-message-segment '(:foo :bar))))
 
 #+self-test.seed
 (self-test.seed:define-self-test message-chain
-  (check-consumed
-      (consume-safely 'message-chain '(:foo 1 foo :bar 2 foo bar ·)) 1)
-  (check-consumed
-      (consume-safely 'message-chain '(+ foo ·)) 1)
-  (check-consumed
-      (consume-safely 'message-chain '(foo ·)) 1)
-  (check-syntax-error
-   (consume-safely 'message-chain '(1)))
-  (check-syntax-error
-   (consume-safely 'message-chain '(+)))
-  (check-syntax-error
-   (consume-safely 'message-chain '())))
+  (check-consumed (consume-safely 'message-chain '(:foo 1 foo :bar 2 foo bar ·)) 1)
+  (check-consumed (consume-safely 'message-chain '(+ foo ·)) 1)
+  (check-consumed (consume-safely 'message-chain '(foo ·)) 1)
+  (check-syntax-error (consume-safely 'message-chain '(1)))
+  (check-syntax-error (consume-safely 'message-chain '(+)))
+  (check-syntax-error (consume-safely 'message-chain '())))
 
 #+self-test.seed
 (self-test.seed:define-self-test expression
-  (check-consumed
-      (consume-safely 'expression '(1 :foo 1 foo :bar 2 foo bar ·)) 1)
-  (check-consumed
-      (consume-safely 'expression '(1 :foo 2 ··· :bar a ·)) 1)
-  (check-consumed
-      (consume-safely 'expression '(1 :foo 2 ··· :bar a ··· foo ·)) 1)
-  (check-syntax-error
-   (consume-safely 'expression '(:foo 1 ·)))
-  (check-syntax-error
-   (consume-safely 'expression '()))
-  (check-syntax-error
-   (consume-safely 'expression '(·))))
+  (check-consumed (consume-safely 'expression '(1 :foo 1 foo :bar 2 foo bar ·)) 1)
+  (check-consumed (consume-safely 'expression '(1 :foo 2 ··· :bar a ·)) 1)
+  (check-consumed (consume-safely 'expression '(1 :foo 2 ··· :bar a ··· foo ·)) 1)
+  (check-syntax-error (consume-safely 'expression '(:foo 1 ·)))
+  (check-syntax-error (consume-safely 'expression '()))
+  (check-syntax-error (consume-safely 'expression '(·))))
 
 #+self-test.seed
 (self-test.seed:define-self-test statement
