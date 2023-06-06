@@ -6,6 +6,7 @@
 
 (defun binary-operator-p (x)
   (and (non-keyword-symbol-p x)
+       (not (zerop (length (symbol-name x)))) ; because ||
        (loop :for c :across (symbol-name x)
              :always (loop :for op :across "-,~!@%&*+/=<>?|"
                              :thereis (eql c op)))))
