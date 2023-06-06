@@ -185,5 +185,3 @@
 
 (define-non-terminal keyword-method-header
   (keyword-method-header-segment keyword-method-header-segment-chain))
-
-(consume-safely 'method-declaration '(+ foo || a || a := 1 + foo · ^ a))
