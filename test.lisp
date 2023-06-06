@@ -110,6 +110,13 @@
   (check-syntax-error (consume-safely 'block-literal (read-from-string "( [ )")))
   (check-syntax-error (consume-safely 'block-literal (read-from-string "( ] )"))))
 
+(self-test.seed:define-self-test dynamic-array
+  (check-consumed (consume-safely 'operand '( { } )))
+  (check-consumed (consume-safely 'operand '( { foo } )))
+  (check-consumed (consume-safely 'operand '( { foo · bar } )))
+  (check-consumed (consume-safely 'operand '( { foo · bar · } )))
+  (check-consumed (consume-safely 'operand '( { foo bar } ))))
+
 (self-test.seed:define-self-test method-declaration
   (check-consumed (consume-safely 'method-declaration '(foo)))
   (check-consumed (consume-safely 'method-declaration '(foo ^ 1)))

@@ -14,7 +14,8 @@
 (defun special-symbol-p (x)
   (or (eq x :=)
       (and (non-keyword-symbol-p x)
-           (member x '("·" "···" "^" "" "[" "]") :test #'string=))))
+           (member x '("·" "···" "^" "" "[" "]" "{" "}")
+                   :test #'string=))))
 
 (define-terminal identifier (x)
   (and (non-keyword-symbol-p x)
@@ -69,11 +70,15 @@
   (valid-keyword formal-block-argument-declaration-chain)
   ())
 
+(define-non-terminal dynamic-array-literal
+  ("{" statement-chain "}"))
+
 (define-non-terminal operand
   (literal)
   (block-literal)
   (identifier)
-  (nested-expression))
+  (nested-expression)
+  (dynamic-array-literal))
 
 (define-non-terminal unary-message
   (identifier))
