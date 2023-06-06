@@ -5,7 +5,7 @@
 (in-package :symbolic-smalltalk-parser)
 
 (defclass terminal ()
-  ((token :initarg :token :accessor token :initform nil)))
+  ((token :initarg :token :accessor token)))
 
 (defclass non-terminal ()
   ((value :initarg :value :accessor value :initform nil)))
