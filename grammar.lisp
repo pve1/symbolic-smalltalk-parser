@@ -4,9 +4,6 @@
 
 ;;; Terminals
 
-(defun non-keyword-symbol-p (x)
-  (and (symbolp x) (not (keywordp x))))
-
 (defun binary-operator-p (x)
   (and (non-keyword-symbol-p x)
        (loop :for c :across (symbol-name x)
@@ -28,13 +25,13 @@
        (not (special-symbol-p x))))
 
 (define-terminal statement-separator (x)
-  (symbol-and-string= "·" x))
+  (non-keyword-symbol-string= "·" x))
 
 (define-terminal cascade-operand (x)
-  (symbol-and-string= "···" x))
+  (non-keyword-symbol-string= "···" x))
 
 (define-terminal return-operator (x)
-  (symbol-and-string= "^" x))
+  (non-keyword-symbol-string= "^" x))
 
 (define-terminal assignment-operator (x)
   (eq x :=))
