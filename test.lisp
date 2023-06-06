@@ -16,6 +16,27 @@
 (defmacro check-syntax-error (consume-safely-form)
   `(not (eq t (ignore-errors ,consume-safely-form t))))
 
+(self-test.seed:define-self-test operand
+  (check-consumed (consume-safely 'operand '( a )))
+  (check-consumed (consume-safely 'operand '( 'a )))
+  (check-consumed (consume-safely 'operand '( ':a )))
+  (check-consumed (consume-safely 'operand '( 1 )))
+  (check-consumed (consume-safely 'operand '( #\a )))
+  (check-consumed (consume-safely 'operand '( "a" )))
+  (check-consumed (consume-safely 'operand '( #'+ )))
+  (check-consumed (consume-safely 'operand '( '(a) )))
+  (check-consumed (consume-safely 'operand '( (a) )))
+  (check-consumed (consume-safely 'operand '( #(1) )))
+  (check-consumed (consume-safely 'operand '( [ a ] )))
+  (check-consumed (consume-safely 'operand '( { } )))
+
+  (check-syntax-error (consume-safely 'operand '(:a)))
+  (check-syntax-error (consume-safely 'operand '(+)))
+  (check-syntax-error (consume-safely 'operand '(·)))
+  (check-syntax-error (consume-safely 'operand '(:=)))
+  (check-syntax-error (consume-safely 'operand '(^)))
+  (check-syntax-error (consume-safely 'operand '(···))))
+
 (self-test.seed:define-self-test unary-message
   (check-consumed (consume-safely 'unary-message '(foo ·)) 1)
   (check-syntax-error (consume-safely 'unary-message '(+)))
