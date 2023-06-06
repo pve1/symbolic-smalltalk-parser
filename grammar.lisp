@@ -156,3 +156,29 @@
    statement-chain)
   (statement-chain)
   ())
+
+(define-non-terminal method-declaration
+  (method-header executable-code))
+
+(define-non-terminal method-header
+  (unary-method-header)
+  (binary-method-header)
+  (keyword-method-header))
+
+(define-non-terminal unary-method-header
+  (unary-message))
+
+(define-non-terminal binary-method-header
+  (binary-operator identifier))
+
+(define-non-terminal keyword-method-header-segment
+  (valid-keyword identifier))
+
+(define-non-terminal keyword-method-header-segment-chain
+  (keyword-method-header-segment keyword-method-header-segment-chain)
+  ())
+
+(define-non-terminal keyword-method-header
+  (keyword-method-header-segment keyword-method-header-segment-chain))
+
+(consume-safely 'method-declaration '(+ foo || a || a := 1 + foo · ^ a))

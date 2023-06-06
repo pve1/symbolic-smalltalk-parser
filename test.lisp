@@ -148,3 +148,22 @@
   (check-syntax-error (consume-safely 'block-literal '([ || ])))
   (check-syntax-error (consume-safely 'block-literal (read-from-string "( [ )")))
   (check-syntax-error (consume-safely 'block-literal (read-from-string "( ] )"))))
+
+#+self-test.seed
+(self-test.seed:define-self-test method-declaration
+  (check-consumed (consume-safely 'method-declaration '(foo)))
+  (check-consumed (consume-safely 'method-declaration '(foo ^ 1)))
+  (check-consumed (consume-safely 'method-declaration '(foo || a ||)))
+  (check-consumed (consume-safely 'method-declaration '(foo || a || ^ a)))
+  (check-consumed (consume-safely 'method-declaration '(+ a a)))
+  (check-consumed (consume-safely 'method-declaration '(+ a ^ a)))
+  (check-consumed (consume-safely 'method-declaration '(+ a || b || ^ a)))
+  (check-consumed (consume-safely 'method-declaration '(:foo a ^ a)))
+  (check-consumed (consume-safely 'method-declaration '(:foo a :bar b ^ a)))
+  (check-consumed (consume-safely 'method-declaration '(:foo a :bar b || c || ^ a)))
+  (check-consumed (consume-safely 'method-declaration '(:foo a :bar b || c || c := 1 · ^ a)))
+  (check-syntax-error (consume-safely 'method-declaration '(|| a ||)))
+  (check-syntax-error (consume-safely 'method-declaration '(1)))
+  (check-syntax-error (consume-safely 'method-declaration '("a")))
+  (check-syntax-error (consume-safely 'method-declaration '( [ a ] )))
+  (check-syntax-error (consume-safely 'method-declaration '(·))))
