@@ -44,6 +44,11 @@
   ((identifier)
    `(core:send ,operand ,(? 0))))
 
+(define-emit unary-message-chain (operand)
+  ((unary-message unary-message-chain)
+   (? 1 (? 0 operand)))
+  (() operand))
+
 (define-emit binary-message-operand ()
   ((operand unary-message-chain)
    (? 1 (? 0))))
