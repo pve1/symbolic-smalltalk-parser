@@ -5,6 +5,7 @@
   :version "0.0.1"
   :serial t
   :components ((:file "parser")
-               (:file "grammar"))
+               (:file "grammar")
+               (:file "emitter"))
   :depends-on (#:symbolic-smalltalk-core
                #:alexandria))
