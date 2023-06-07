@@ -10,7 +10,7 @@
            "CONSUME-TOPLEVEL"
            "LOOKING-AT"
            "DEFINE-TERMINAL"
-           "DEFINE-NON-TERMINAL")
+           "DEFINE-NON-TERMINAL"))
 
 (in-package :symbolic-smalltalk-parser)
 
