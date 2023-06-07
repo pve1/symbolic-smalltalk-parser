@@ -20,13 +20,13 @@
                :always (typep child part)))))
 
 (defmacro define-emit (object-class arguments &body body)
-  (alexandria:with-gensyms (args)
+  (alexandria:with-gensyms (args ?n ?args)
     `(defmethod emit ((,object-class ,object-class) &rest ,args)
        (destructuring-bind ,arguments ,args
-         (macrolet (($ (n)
-                      `(nth ,n (value ,',object-class)))
-                    (? (n &rest arguments)
-                      `(emit ($ ,n) ,@arguments)))
+         (macrolet (($ (,?n)
+                      `(nth ,,?n (value ,',object-class)))
+                    (? (,?n &rest ,?args)
+                      `(emit ($ ,,?n) ,@,?args)))
            (cond ,@(loop :for (pattern . pattern-body) :in body
                          :collect (if (eq pattern t)
                                       `(t ,@pattern-body)
