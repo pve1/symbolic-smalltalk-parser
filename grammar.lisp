@@ -157,8 +157,7 @@
   ())
 
 (define-non-terminal executable-code
-  (local-variable-declaration-list
-   statement-chain)
+  (local-variable-declaration-list statement-chain)
   (statement-chain)
   ())
 
