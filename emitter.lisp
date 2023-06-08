@@ -5,6 +5,7 @@
     (declare (ignore arguments))
     (token object))
   (:method ((object nested-expression) &rest arguments)
+    (declare (ignore arguments))
     (with-accessors ((token token)) object
       (unless (or (typep token 'non-terminal)
                   (typep token 'terminal))
