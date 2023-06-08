@@ -60,8 +60,13 @@
   ("[" block-contents "]"))
 
 (define-non-terminal block-contents
-  (formal-block-argument-declaration "" executable-code)
-  (executable-code))
+  (formal-block-argument-declaration "" block-executable-code)
+  (block-executable-code))
+
+(define-non-terminal block-executable-code
+  (local-variable-declaration-list statement-chain)
+  (statement-chain)
+  ())
 
 (define-non-terminal formal-block-argument-declaration
   (valid-keyword formal-block-argument-declaration-chain))

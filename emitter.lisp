@@ -40,6 +40,38 @@
 (define-emit operand ()
   (t (? 0)))
 
+(define-emit block-literal ()
+  ((terminal block-contents terminal)
+   (? 1)))
+
+(define-emit block-contents ()
+  ((formal-block-argument-declaration terminal block-executable-code)
+   `(lambda ,(? 0 (? 1))
+      ,(? 2)))
+  ((block-executable-code)
+   `(lambda ()
+      ,(? 0))))
+
+;; Like executable-code, except no named block.
+(define-emit block-executable-code ()
+  ((local-variable-declaration-list statement-chain)
+   `(let ,(? 0)
+      ,@(? 1)))
+  ((statement-chain)
+   `(progn ,@(? 0)))
+  (()))
+
+(define-emit formal-block-argument-declaration (terminal)
+  ((valid-keyword formal-block-argument-declaration-chain)
+   `(,(intern (string (? 0)) (symbol-package terminal))
+     ,@(? 1 terminal))))
+
+(define-emit formal-block-argument-declaration-chain (terminal)
+  ((valid-keyword formal-block-argument-declaration-chain)
+   `(,(intern (string (? 0)) (symbol-package terminal))
+     ,@(? 1 terminal)))
+  (()))
+
 (define-emit unary-message (operand)
   ((identifier)
    `(core:send ,operand ,(? 0))))
