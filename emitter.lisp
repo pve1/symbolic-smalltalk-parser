@@ -40,6 +40,10 @@
 (define-emit operand ()
   (t (? 0)))
 
+(define-emit dynamic-array-literal ()
+  ((terminal statement-chain terminal)
+   `(vector ,@(? 1))))
+
 (define-emit block-literal ()
   ((terminal block-contents terminal)
    (? 1)))
