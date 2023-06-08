@@ -41,7 +41,6 @@
                                         nil
                                         ,@pattern-body)))))))))
 
-
 ;;; (? N) means "call emit the Nth argument of the value branch".
 
 (define-emit operand ()
