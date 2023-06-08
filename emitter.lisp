@@ -15,8 +15,7 @@
     (let ((val (value object)))
       (if (= 1 (length val))
           (emit val)
-          (error "Don't know how to emit ~S." object)
-          #+n (mapcar #'emit val)))))
+          (error "Don't know how to emit ~S." object)))))
 
 (defun value-matches-pattern-p (object pattern)
   (let ((value (value object)))
