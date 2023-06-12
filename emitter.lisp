@@ -137,11 +137,10 @@
   (() operand))
 
 (define-emit cascaded-message-chain (operand acc)
-  ;; Get rid of "send dummy", keep the message.
   ((cascade-operand message-chain cascaded-message-chain)
-   (? 2 operand `(,@acc ,(cddr (? 1 'dummy)))))
+   (? 2 operand `(,@acc ,(? 1 'dummy))))
   (() (if acc
-          `(core:cascade ,operand
+          `(core:cascade* ,operand
              ,@acc)
           operand)))
 
