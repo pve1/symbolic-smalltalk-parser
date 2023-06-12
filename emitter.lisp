@@ -193,9 +193,10 @@
   ((local-variable-declaration-list statement-chain)
    `(block executable-code
       (let ,(? 0)
-        ,@(? 1))))
+        ,@(? 1)
+        ,(core:self))))
   ((statement-chain)
-   `(block executable-code ,@(? 0)))
+   `(block executable-code ,@(? 0) ,(core:self)))
   (()))
 
 (define-emit method-header ()
