@@ -26,6 +26,10 @@
                :for child :in value
                :always (typep child part)))))
 
+(defun list-with-car-p (car list &key (test #'eql))
+  (and (listp list)
+       (funcall test (car list) car)))
+
 (defmacro define-emit (object-class arguments &body body)
   (alexandria:with-gensyms (args ?n ?args)
     `(defmethod emit ((,object-class ,object-class) &rest ,args)
@@ -195,7 +199,17 @@
         ,@(? 1)
         ,(core:self))))
   ((statement-chain)
-   `(block executable-code ,@(? 0) ,(core:self)))
+   (let* ((statements (? 0))
+          (have-return-from?
+            (list-with-car-p 'return-from
+                             (alexandria:last-elt statements))))
+
+     `(block executable-code
+        ,@statements
+        ;; Return self by default.
+        ,@(if have-return-from?
+              nil
+              (list (core:self))))))
   (()))
 
 (define-emit method-header ()
